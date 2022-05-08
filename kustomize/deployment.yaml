@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parser
+  labels:
+    app: parser
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parser
+  template:
+    metadata:
+      labels:
+        app: parser
+    spec:
+      serviceAccountName: s3-access
+      containers:
+      - name: parser
+        securityContext: {}
+        image: docker pull axarev/parsr
+        imagePullPolicy: Always        
+        envFrom:
+        - secretRef:
+            name: parser-vars
+        ports:
+        - name: api
+          containerPort: 3001
+          protocol: TCP
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: http
+        resources: {}      
