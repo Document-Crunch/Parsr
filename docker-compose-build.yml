@@ -23,8 +23,6 @@ services:
       ABBYY_SERVER_URL:
     volumes:
       - ./pipeline/:/opt/app-root/src/api/server/dist/output
-    depends_on:
-      - parsr-base
 
   # parsr-ui
   # if the API is not running on localhost:3001, you need to rebuild the image with the correct VUE_APP_API variable

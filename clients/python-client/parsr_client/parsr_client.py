@@ -142,10 +142,12 @@ class ParsrClient():
                     print(
                         '>> Progress percentage: {}'.format(
                             server_status_response['progress-percentage']))
-                    sleep(refresh_period)
-                    server_status_response = self.get_status(jobId)[
-                        'server_response']
-                    print('>> Job done!')
+                sleep(refresh_period)
+                server_status_response = self.get_status(jobId)[
+                    'server_response']
+                print(server_status_response)
+                    
+            print('>> Job done!')
             return {
                 'file': file_path,
                 'config': config_path,

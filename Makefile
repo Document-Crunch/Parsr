@@ -20,10 +20,10 @@ set-kubeconfig:
 	@aws eks --region us-east-2 update-kubeconfig --name ${SERVICE}
 
 build:
-	@docker-compose -f ./docker-compose-build.yml build --no-cache parsr-base parsr parsr-ui	
+	@docker-compose -f ./docker-compose-build.yml build --no-cache parsr parsr-ui	
 
 run: 
-	@docker-compose up parsr-ui
+	@docker-compose up parsr parsr-ui
 
 deploy:
 	cd kustomize && kustomize build . | kubectl apply -f -
@@ -34,11 +34,11 @@ login:
 	aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 111084481543.dkr.ecr.us-east-2.amazonaws.com
 
 DOCKER_APP ?= parsr
-TAG ?= lastest
+TAG ?= latest
 
 tag:
-	docker tag ${DOCKER_APP} 111084481543.dkr.ecr.us-east-2.amazonaws.com/${DOCKER_APP}:${TAG}
+	docker tag ${DOCKER_APP}:latest 111084481543.dkr.ecr.us-east-2.amazonaws.com/${DOCKER_APP}:${TAG}
 
 push:
-	docker push 111084481543.dkr.ecr.us-east-2.amazonaws.com/${DOCKER_APP}:latest
+	docker push 111084481543.dkr.ecr.us-east-2.amazonaws.com/${DOCKER_APP}:${TAG}
 
