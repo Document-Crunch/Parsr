@@ -4,7 +4,7 @@ metadata:
   name: parser
   labels:
     app: parser
-  namespace: dev
+  #namespace: dev
 spec:
   replicas: 1
   selector:
@@ -15,11 +15,19 @@ spec:
       labels:
         app: parser
     spec:
-      serviceAccountName: s3-access
+      # volumes:
+      # - name: parsr
+      #   persistentVolumeClaim:
+      #     claimName: model-store-claim
+      #serviceAccountName: s3-access
       containers:
       - name: parser
+        # volumeMounts:
+        #   - mountPath: "/opt/app-root/src/api/server/dist/output"
+        #     name: parsr
+        #     subPath: parser.outputs
         securityContext: {}
-        image: docker pull axarev/parsr
+        image: 111084481543.dkr.ecr.us-east-2.amazonaws.com/parsr:latest
         imagePullPolicy: Always        
         envFrom:
         - secretRef:
@@ -36,4 +44,16 @@ spec:
         #   httpGet:
         #     path: /status
         #     port: http
-        resources: {}      
+        resources: {}
+      # - name: ui
+      #   securityContext: {}
+      #   image: 111084481543.dkr.ecr.us-east-2.amazonaws.com/parsr-ui:latest
+      #   imagePullPolicy: Always        
+      #   envFrom:
+      #   - secretRef:
+      #       name: parsr-vars      
+      #   ports:
+      #   - name: nginx
+      #     containerPort: 80
+      #     protocol: TCP        
+      #   resources: {}      

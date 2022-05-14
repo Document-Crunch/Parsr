@@ -1,0 +1,25 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fsx-parsr  
+provisioner: fsx.csi.aws.com
+parameters:
+  autoImportPolicy: NEW_CHANGED_DELETED
+  deploymentType: SCRATCH_2
+  s3ExportPath: s3://parsr/input
+  s3ImportPath: s3://parsr/output
+  securityGroupIds: sg-0bc789546763c6d45
+  subnetId: subnet-00bf0107ea41d0cc4
+  #perUnitStorageThroughput: "125"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fsx-parsr-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: fsx-parsr
+  resources:
+    requests:
+      storage: 1200Gi

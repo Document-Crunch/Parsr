@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   parsr:
-    image: axarev/parsr
+    image: parsr
     ports:
       - 3001:3001
     environment:
@@ -11,7 +11,7 @@ services:
       - ./pipeline/:/opt/app-root/src/api/server/dist/output
 
   parsr-ui:
-    image: axarev/parsr-ui-localhost
+    image: parsr-ui
     ports:
       - 8080:80
 

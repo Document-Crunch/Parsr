@@ -109,7 +109,7 @@ class ParsrClient():
                                'application/json'),
                 }
                 r = post(
-                    'http://' + server + '/api/v1/document',
+                    'https://' + server + '/api/v1/document',
                     files=packet)
                 jobId = r.text
         if not document_name:
