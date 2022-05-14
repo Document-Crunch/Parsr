@@ -18,6 +18,7 @@ import archiver from 'archiver';
 import { exec, spawnSync } from 'child_process';
 import * as crypto from 'crypto';
 import express from 'express';
+import cors from 'cors';
 import { Request, Response } from 'express-serve-static-core';
 import * as fs from 'fs';
 import multer from 'multer';
@@ -68,6 +69,7 @@ export class ApiServer {
 
   public launchServer(port: number): void {
     const app = express();
+    app.use(cors());
 
     // tslint:disable-next-line:variable-name
     const v1_0 = express.Router();

@@ -1,5 +1,8 @@
-ARG BASEIMAGE_VERSION
-FROM axarev/parsr-base:${BASEIMAGE_VERSION:-latest}
+#ARG BASEIMAGE_VERSION
+FROM parsr-base
+#FROM axarev/parsr-base:${BASEIMAGE_VERSION:-latest}
+
+#RUN apt-get -y install openjdk-11-jdk
 
 ENV NODE_ENV development
 
