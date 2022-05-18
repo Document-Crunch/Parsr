@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parsr-ui
+  labels:
+    app: parsr-ui
+  #namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parsr-ui
+  template:
+    metadata:
+      labels:
+        app: parsr-ui
+    spec:
+      # volumes:
+      # - name: parsr
+      #   persistentVolumeClaim:
+      #     claimName: model-store-claim
+      #serviceAccountName: s3-access
+      containers:
+      - name: parsr-ui
+        # volumeMounts:
+        #   - mountPath: "/opt/app-root/src/api/server/dist/output"
+        #     name: parsr
+        #     subPath: parser.outputs
+        securityContext: {}
+        image: 111084481543.dkr.ecr.us-east-2.amazonaws.com/parsr-ui:latest
+        imagePullPolicy: Always                
+        ports:
+        - name: app
+          containerPort: 80
+          protocol: TCP
+        # livenessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /status
+        #     port: http
+        resources: {}
+      # - name: ui
+      #   securityContext: {}
+      #   image: 111084481543.dkr.ecr.us-east-2.amazonaws.com/parsr-ui:latest
+      #   imagePullPolicy: Always        
+      #   envFrom:
+      #   - secretRef:
+      #       name: parsr-vars      
+      #   ports:
+      #   - name: nginx
+      #     containerPort: 80
+      #     protocol: TCP        
+      #   resources: {}      

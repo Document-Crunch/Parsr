@@ -11,10 +11,9 @@ ifneq ("$(wildcard ./.env)","")
 	export
 endif
 
-
 SERVICE=ml
 
-.PHONY: set-kubeconfig build run
+.PHONY: set-kubeconfig build run run-ui
 
 set-kubeconfig:
 	@aws eks --region us-east-2 update-kubeconfig --name ${SERVICE}
@@ -24,6 +23,9 @@ build:
 
 run: 
 	@docker-compose up parsr parsr-ui
+
+run-ui: 
+	@docker-compose up parsr-ui
 
 deploy:
 	cd kustomize && kustomize build . | kubectl apply -f -
